@@ -911,7 +911,7 @@ def preprocess(is_train=False):
         device = "gcu:{0}".format(os.getenv("FLAGS_selected_gcus", 0))
     elif use_iluvatar_gpu:
         device = "iluvatar_gpu:{0}".format(dist.ParallelEnv().dev_id)
-    elif use_metax_gpu
+    elif use_metax_gpu:
         device = "metax_gpu:{0}".format(dist.ParallelEnv().dev_id)
     else:
         device = "gpu:{}".format(dist.ParallelEnv().dev_id) if use_gpu else "cpu"
