@@ -912,7 +912,7 @@ def preprocess(is_train=False):
     elif use_iluvatar_gpu:
         device = "iluvatar_gpu:{0}".format(dist.ParallelEnv().dev_id)
     elif use_metax_gpu:
-        device = "metax_gpu:{0}".format(dist.ParallelEnv().dev_id)
+        device = "metax_gpu:{}".format(dist.ParallelEnv().dev_id) if use_metax_gpu else "cpu"
     else:
         device = "gpu:{}".format(dist.ParallelEnv().dev_id) if use_gpu else "cpu"
     check_device(use_gpu, use_xpu, use_npu, use_mlu, use_gcu, use_metax_gpu, use_iluvatar_gpu)
