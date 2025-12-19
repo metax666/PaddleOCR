@@ -915,10 +915,10 @@ def preprocess(is_train=False):
         device = "mlu:{0}".format(os.getenv("FLAGS_selected_mlus", 0))
     elif use_gcu:  # Use Enflame GCU(General Compute Unit)
         device = "gcu:{0}".format(os.getenv("FLAGS_selected_gcus", 0))
-    elif use_metax_gpu:  # Use Enflame GCU(General Compute Unit)
-        device = "metax:{0}".format(os.getenv("FLAGS_selected_metaxs", 0))
     elif use_iluvatar_gpu:
         device = "iluvatar_gpu:{0}".format(dist.ParallelEnv().dev_id)
+    elif use_metax_gpu:
+        device = "metax_gpu:{}".format(dist.ParallelEnv().dev_id) if use_metax_gpu else "cpu"
     else:
         device = "gpu:{}".format(dist.ParallelEnv().dev_id) if use_gpu else "cpu"
     check_device(
