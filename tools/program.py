@@ -139,7 +139,7 @@ def check_device(
     try:
         if use_gpu and use_xpu:
             print("use_xpu and use_gpu can not both be true.")
-        if metax_gpu and not paddle.device.is_compiled_with_custom_device("metax_gpu"):
+        if use_metax_gpu and not paddle.device.is_compiled_with_custom_device("metax_gpu"):
             print(err.format("use_metax_gpu", "metax_gpu", "metax_gpu", "use_metax_gpu"))
             sys.exit(1)
         if use_gpu and not paddle.is_compiled_with_cuda():
@@ -911,8 +911,8 @@ def preprocess(is_train=False):
         device = "gcu:{0}".format(os.getenv("FLAGS_selected_gcus", 0))
     elif use_iluvatar_gpu:
         device = "iluvatar_gpu:{0}".format(dist.ParallelEnv().dev_id)
-    elif 
-        device = "metax_gpu:{}".format(dist.ParallelEnv().dev_id) if use_metax_gpu else "cpu"
+    elif use_metax_gpu
+        device = "metax_gpu:{0}".format(dist.ParallelEnv().dev_id)
     else:
         device = "gpu:{}".format(dist.ParallelEnv().dev_id) if use_gpu else "cpu"
     check_device(use_gpu, use_xpu, use_npu, use_mlu, use_gcu, use_metax_gpu, use_iluvatar_gpu)
